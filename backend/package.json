@@ -1,0 +1,36 @@
+{
+    "name": "ai-assistant-backend",
+    "version": "2.0.0",
+    "description": "Backend for AI Assistant System with Amharic support - Azure OpenAI + RAG",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "node src/server.js",
+        "dev": "nodemon src/server.js",
+        "migrate": "node src/database/migrate.js",
+        "setup-vector": "node src/database/setup-vector.js",
+        "check": "node check-system.js"
+    },
+    "dependencies": {
+        "@azure/openai": "^2.0.0",
+        "axios": "^1.6.2",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "express-rate-limit": "^7.1.5",
+        "groq-sdk": "^0.37.0",
+        "helmet": "^7.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "mammoth": "^1.6.0",
+        "microsoft-cognitiveservices-speech-sdk": "^1.48.0",
+        "multer": "^1.4.5-lts.1",
+        "openai": "^4.20.1",
+        "pdf-parse": "^1.1.1",
+        "pg": "^8.11.3",
+        "uuid": "^9.0.1",
+        "winston": "^3.11.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2"
+    }
+}
