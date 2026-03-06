@@ -50,10 +50,27 @@ app.use((req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🌐 CORS enabled for: ${process.env.CORS_ORIGIN || 'http://localhost:3000'}`);
-});
+const startServer = async () => {
+    try {
+        // Run migration on startup if in production
+        if (process.env.NODE_ENV === 'production') {
+            console.log('🔄 Running database migration...');
+            const { runMigration } = require('./database/migrate');
+            await runMigration();
+            console.log('✅ Database migration completed');
+        }
+
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT}`);
+            console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+            console.log(`🌐 CORS enabled for: ${process.env.CORS_ORIGIN || 'http://localhost:3000'}`);
+        });
+    } catch (error) {
+        console.error('❌ Failed to start server:', error);
+        process.exit(1);
+    }
+};
+
+startServer();
 
 module.exports = app;

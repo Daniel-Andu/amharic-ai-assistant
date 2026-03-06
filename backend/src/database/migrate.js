@@ -34,8 +34,21 @@ async function runMigration() {
         throw error;
     } finally {
         client.release();
-        await pool.end();
     }
 }
 
-runMigration();
+// Export for use in server.js
+module.exports = { runMigration };
+
+// Run migration if called directly
+if (require.main === module) {
+    runMigration()
+        .then(() => {
+            console.log('Migration finished');
+            process.exit(0);
+        })
+        .catch((error) => {
+            console.error('Migration failed:', error);
+            process.exit(1);
+        });
+}
